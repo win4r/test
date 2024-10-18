@@ -1,0 +1,16 @@
+services:
+  llama-serverless:
+    image: ${registry}/${tenant_name}/llama-serverless:v1
+    build:
+      context: .
+      args:
+        - BASE_URL=${registry}
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
